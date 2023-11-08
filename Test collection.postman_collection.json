@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "fd6d151d-9c91-4748-82ca-59e97621f29d",
+		"name": "Test collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30097032"
+	},
+	"item": [
+		{
+			"name": "GET-Comments Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Should verify response status code\", () => {\r",
+							"    console.log(pm.response.code)\r",
+							"   // pm.response.to.have.status(200);\r",
+							"   //pm.expect(pm.response.code).to.eql(200)\r",
+							"   pm.expect(pm.response.code).to.be.oneOf([200, 404])\r",
+							"   pm.expect(pm.response.code).to.be.a(\"number\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify respons Time\", () => {\r",
+							"    pm.expect(pm.response.responseTime).to.lessThan(200)\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify respons status\", () => {\r",
+							"\r",
+							"    pm.expect(pm.response.status).to.eql(\"OK\");\r",
+							"    pm.expect(pm.response.status).to.be.a(\"string\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify post ID\", () => {\r",
+							"const responseBody = pm.response.json();\r",
+							"console.log(responseBody[0].id)\r",
+							"    pm.expect(responseBody[0].id).to.eql(1);\r",
+							"    pm.expect(responseBody[0].id).to.be.a(\"number\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify length of name\", () => {\r",
+							"const responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody[1].name).to.have.lengthOf(41);\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Should verify response email\", () => {\r",
+							"const responseBody = pm.response.json();\r",
+							"    pm.expect(responseBody[1].email).to.include(\"@\");\r",
+							"})\r",
+							"\r",
+							"pm.test(\"Should verify all response email\", () => {\r",
+							"const responseBody = pm.response.json();\r",
+							"responseBody.map(obiekt => {\r",
+							"    pm.expect(obiekt.email).to.include(\"@\");\r",
+							"})\r",
+							"})\r",
+							"\r",
+							"//Checking Headers\r",
+							"\r",
+							"pm.test(\"Should verify content type\", () => {\r",
+							"\r",
+							"    pm.response.to.have.header(\"Content-Encoding\");\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.test(\"Should verify content value\", () => {\r",
+							"\r",
+							"    pm.expect(pm.response.headers.get(\"Server\")).to.eql(\"cloudflare\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/comments?postId=1&postId=5&_limit=2",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"comments"
+					],
+					"query": [
+						{
+							"key": "postId",
+							"value": "1"
+						},
+						{
+							"key": "postId",
+							"value": "5"
+						},
+						{
+							"key": "_limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
