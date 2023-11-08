@@ -1,0 +1,55 @@
+pm.test("Should verify response status code", () => {
+    console.log(pm.response.code)
+   // pm.response.to.have.status(200);
+   //pm.expect(pm.response.code).to.eql(200)
+   pm.expect(pm.response.code).to.be.oneOf([200, 404])
+   pm.expect(pm.response.code).to.be.a("number");
+})
+
+pm.test("Should verify respons Time", () => {
+    pm.expect(pm.response.responseTime).to.lessThan(200)
+})
+
+pm.test("Should verify respons status", () => {
+
+    pm.expect(pm.response.status).to.eql("OK");
+    pm.expect(pm.response.status).to.be.a("string");
+})
+
+pm.test("Should verify post ID", () => {
+const responseBody = pm.response.json();
+console.log(responseBody[0].id)
+    pm.expect(responseBody[0].id).to.eql(1);
+    pm.expect(responseBody[0].id).to.be.a("number");
+})
+
+pm.test("Should verify length of name", () => {
+const responseBody = pm.response.json();
+    pm.expect(responseBody[1].name).to.have.lengthOf(41);
+})
+
+
+pm.test("Should verify response email", () => {
+const responseBody = pm.response.json();
+    pm.expect(responseBody[1].email).to.include("@");
+})
+
+pm.test("Should verify all response email", () => {
+const responseBody = pm.response.json();
+responseBody.map(obiekt => {
+    pm.expect(obiekt.email).to.include("@");
+})
+})
+
+//Checking Headers
+
+pm.test("Should verify content type", () => {
+
+    pm.response.to.have.header("Content-Encoding");
+})
+
+
+pm.test("Should verify content value", () => {
+
+    pm.expect(pm.response.headers.get("Server")).to.eql("cloudflare");
+})
