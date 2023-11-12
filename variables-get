@@ -1,0 +1,17 @@
+pm.test("Global", () => {
+    const expectedTitle = pm.globals.get('postTitle');
+    const resBody = pm.response.json();
+    pm.expect(resBody.title).to.eql(expectedTitle)
+})
+
+pm.test("Collections", () => {
+    const expectedUrl = pm.collectionVariables.get('baseURL');
+   // console.log(expectedUrl)
+})
+
+pm.test("Enviroment", () => {
+
+    const expectedUserName = pm.environment.get('userName');
+console.log(expectedUserName);
+
+})
