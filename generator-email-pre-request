@@ -1,0 +1,8 @@
+function generatorEmail() {
+
+    const randomNumbers = Math.floor(Math.random()* (1000000 - 1) + 1);
+    const valueMail = "test" + randomNumbers + "@example.com";
+    pm.globals.set("randomEmail", valueMail);
+}
+
+generatorEmail();
